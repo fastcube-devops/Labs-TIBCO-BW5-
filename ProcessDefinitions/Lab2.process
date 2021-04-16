@@ -190,7 +190,7 @@
             <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
             <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
             <pd:x>417</pd:x>
-            <pd:y>239</pd:y>
+            <pd:y>238</pd:y>
             <config>
                 <element>
                     <xsd:element name="root">
@@ -268,8 +268,8 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Log error">
             <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
             <pd:resourceType>ae.process.subprocess</pd:resourceType>
-            <pd:x>1060</pd:x>
-            <pd:y>374</pd:y>
+            <pd:x>1061</pd:x>
+            <pd:y>375</pd:y>
             <config>
                 <processName>/ProcessDefinitions/Logging.process</processName>
             </config>
@@ -293,7 +293,7 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Log succes">
             <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
             <pd:resourceType>ae.process.subprocess</pd:resourceType>
-            <pd:x>1081</pd:x>
+            <pd:x>1082</pd:x>
             <pd:y>101</pd:y>
             <config>
                 <processName>/ProcessDefinitions/Logging.process</processName>
@@ -374,12 +374,25 @@ SET nom_fichier = ?</statement>
             <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
             <pd:resourceType>ae.process.subprocess</pd:resourceType>
             <pd:x>766</pd:x>
-            <pd:y>249</pd:y>
+            <pd:y>247</pd:y>
             <config>
                 <processName>/ProcessDefinitions/Logging.process</processName>
             </config>
             <pd:inputBindings>
-                <pfx:log_info/>
+                <pfx:log_info>
+                    <pfx:idFonc>
+                        <xsl:value-of select="concat(&quot;!!!!!!!!&quot;, tib:timestamp())"/>
+                    </pfx:idFonc>
+                    <pfx:idTech>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                    </pfx:idTech>
+                    <pfx:status>
+                        <xsl:value-of select="&quot;N/A&quot;"/>
+                    </pfx:status>
+                    <pfx:logMessage>
+                        <xsl:value-of select="&quot;warnning&quot;"/>
+                    </pfx:logMessage>
+                </pfx:log_info>
             </pd:inputBindings>
         </pd:activity>
     </pd:group>
@@ -403,7 +416,7 @@ SET nom_fichier = ?</statement>
                     <xsl:value-of select="&quot;N/A&quot;"/>
                 </pfx:status>
                 <pfx:logMessage>
-                    <xsl:value-of select="&quot;N/A&quot;"/>
+                    <xsl:value-of select="&quot;itnitiale&quot;"/>
                 </pfx:logMessage>
             </pfx:log_info>
         </pd:inputBindings>
