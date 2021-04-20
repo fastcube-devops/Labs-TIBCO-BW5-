@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/Ressources/FormatFichier.sharedparse" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/Lab2/schema/Schema.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/pe/EngineTypes">
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/Ressources/FormatFichier.sharedparse" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/Lab2/schema/Schema1.xsd" xmlns:ns="http://www.tibco.com/schemas/Lab2/schema/Schema.xsd" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/pe/EngineTypes">
     <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/ns/no_namespace_schema_location/Ressources/FormatFichier.sharedparse" schemaLocation="/Ressources/FormatFichier.sharedparse"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/Lab2/schema/Schema1.xsd" schemaLocation="/schema/Schema client.xsd"/>
     <pd:name>ProcessDefinitions/Lab1.process</pd:name>
     <pd:startName>Timer</pd:startName>
     <pd:startX>0</pd:startX>
@@ -9,8 +10,8 @@
     <pd:starter name="Timer">
         <pd:type>com.tibco.plugin.timer.TimerEventSource</pd:type>
         <pd:resourceType>ae.activities.timer</pd:resourceType>
-        <pd:x>67</pd:x>
-        <pd:y>72</pd:y>
+        <pd:x>64</pd:x>
+        <pd:y>71</pd:y>
         <config>
             <StartTime>1618483505000</StartTime>
             <Frequency>false</Frequency>
@@ -20,32 +21,34 @@
         <pd:inputBindings/>
     </pd:starter>
     <pd:endName>End</pd:endName>
-    <pd:endX>1020</pd:endX>
-    <pd:endY>88</pd:endY>
+    <pd:endX>1051</pd:endX>
+    <pd:endY>75</pd:endY>
     <pd:errorSchemas/>
     <pd:processVariables/>
     <pd:targetNamespace>http://xmlns.example.com/1618479153029</pd:targetNamespace>
     <pd:activity name="Recuperation BDD">
         <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
         <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
-        <pd:x>295</pd:x>
-        <pd:y>86</pd:y>
+        <pd:x>333</pd:x>
+        <pd:y>62</pd:y>
         <config>
             <timeout>10</timeout>
             <commit>false</commit>
             <maxRows>10</maxRows>
             <emptyStrAsNil>false</emptyStrAsNil>
             <jdbcSharedConfig>/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
-            <statement>SELECT id_client, nom, prenom, adresse, profession, date_ajout, nom_fichier, date_update, flag
-FROM clients
-WHERE flag='N'</statement>
+            <statement>SELECT ID_CLIENT, NOM_CLIENT, PRENOM, ADRESSE, PROFESSION, DATE_AJOUT, NOM_FICHIER, DATE_UPDATE, FLAG
+FROM CLIENTS
+WHERE FLAG='C' </statement>
+            <Prepared_Param_DataType/>
+            <wizardData/>
             <oraObjects/>
             <oraTables/>
             <QueryOutputCachedSchemaColumns>ID_CLIENT</QueryOutputCachedSchemaColumns>
-            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
-            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>NUMBER</QueryOutputCachedSchemaDataTypesName>
             <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
-            <QueryOutputCachedSchemaColumns>NOM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaColumns>NOM_CLIENT</QueryOutputCachedSchemaColumns>
             <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
             <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
             <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
@@ -70,8 +73,8 @@ WHERE flag='N'</statement>
             <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
             <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
             <QueryOutputCachedSchemaColumns>DATE_UPDATE</QueryOutputCachedSchemaColumns>
-            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
-            <QueryOutputCachedSchemaDataTypesName>TIMESTAMP</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
             <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
             <QueryOutputCachedSchemaColumns>FLAG</QueryOutputCachedSchemaColumns>
             <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
@@ -85,8 +88,8 @@ WHERE flag='N'</statement>
     <pd:group name="Group">
         <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
         <pd:resourceType>ae.process.group</pd:resourceType>
-        <pd:x>451</pd:x>
-        <pd:y>62</pd:y>
+        <pd:x>540</pd:x>
+        <pd:y>31</pd:y>
         <pd:width>293</pd:width>
         <pd:height>178</pd:height>
         <pd:collapsedWidth>57</pd:collapsedWidth>
@@ -121,8 +124,8 @@ WHERE flag='N'</statement>
         <pd:activity name="JMS Queue Sender">
             <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
             <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
-            <pd:x>624</pd:x>
-            <pd:y>159</pd:y>
+            <pd:x>675</pd:x>
+            <pd:y>108</pd:y>
             <config>
                 <PermittedMessageType>XML Text</PermittedMessageType>
                 <SessionAttributes>
@@ -135,42 +138,43 @@ WHERE flag='N'</statement>
                     <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
                     <JMSExpiration>0</JMSExpiration>
                     <JMSPriority>4</JMSPriority>
+                    <JMSReplyTo>transport</JMSReplyTo>
                 </ConfigurableHeaders>
                 <DeliveryDelay>0</DeliveryDelay>
                 <ConnectionReference>/Connections/ConnexionJMS.sharedjmscon</ConnectionReference>
-                <InDataxsdString ref="pfx:Rows"/>
+                <InDataxsdString ref="pfx2:CLIENTS"/>
             </config>
             <pd:inputBindings>
-                <ns0:ActivityInput xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/jms">
+                <ns0:ActivityInput>
                     <Body>
-                        <Rows>
-                            <Client>
-                                <id_client>
-                                    <xsl:value-of select="$current/Record/ID_CLIENT"/>
-                                </id_client>
-                                <nom>
-                                    <xsl:value-of select="$current/Record/NOM"/>
-                                </nom>
-                                <prenom>
-                                    <xsl:value-of select="$current/Record/PRENOM"/>
-                                </prenom>
-                                <adresse>
-                                    <xsl:value-of select="$current/Record/ADRESSE"/>
-                                </adresse>
-                                <profession>
-                                    <xsl:value-of select="$current/Record/PROFESSION"/>
-                                </profession>
-                                <date_ajout>
-                                    <xsl:value-of select="$current/Record/DATE_AJOUT"/>
-                                </date_ajout>
-                                <date_update>
-                                    <xsl:value-of select="$current/Record/DATE_UPDATE"/>
-                                </date_update>
-                                <flag>
-                                    <xsl:value-of select="$current/Record/FLAG"/>
-                                </flag>
-                            </Client>
-                        </Rows>
+                        <xsl:for-each select="$current/Record">
+                            <pfx2:CLIENTS>
+                                <pfx2:ID_CLIENT>
+                                    <xsl:value-of select="ID_CLIENT"/>
+                                </pfx2:ID_CLIENT>
+                                <pfx2:NOM_CLIENT>
+                                    <xsl:value-of select="NOM_CLIENT"/>
+                                </pfx2:NOM_CLIENT>
+                                <pfx2:PRENOM>
+                                    <xsl:value-of select="PRENOM"/>
+                                </pfx2:PRENOM>
+                                <pfx2:ADRESSE>
+                                    <xsl:value-of select="ADRESSE"/>
+                                </pfx2:ADRESSE>
+                                <pfx2:PROFESSION>
+                                    <xsl:value-of select="PROFESSION"/>
+                                </pfx2:PROFESSION>
+                                <pfx2:DATE_AJOUT>
+                                    <xsl:value-of select="DATE_AJOUT"/>
+                                </pfx2:DATE_AJOUT>
+                                <pfx2:DATE_UPDATE>
+                                    <xsl:value-of select="DATE_UPDATE"/>
+                                </pfx2:DATE_UPDATE>
+                                <pfx2:FLAG>
+                                    <xsl:value-of select="FLAG"/>
+                                </pfx2:FLAG>
+                            </pfx2:CLIENTS>
+                        </xsl:for-each>
                     </Body>
                 </ns0:ActivityInput>
             </pd:inputBindings>
@@ -179,7 +183,7 @@ WHERE flag='N'</statement>
     <pd:activity name="Log Initiale">
         <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
         <pd:resourceType>ae.process.subprocess</pd:resourceType>
-        <pd:x>167</pd:x>
+        <pd:x>169</pd:x>
         <pd:y>185</pd:y>
         <config>
             <processName>/ProcessDefinitions/Logging.process</processName>
@@ -187,7 +191,7 @@ WHERE flag='N'</statement>
         <pd:inputBindings>
             <ns:log_info>
                 <ns:idFonc>
-                    <xsl:value-of select="concat(&quot;????&quot;, tib:timestamp())"/>
+                    <xsl:value-of select="concat(&quot;unkown&quot;, tib:timestamp())"/>
                 </ns:idFonc>
                 <ns:idTech>
                     <xsl:value-of select="$_processContext/ns1:ProcessContext/ProcessId"/>
@@ -196,7 +200,7 @@ WHERE flag='N'</statement>
                     <xsl:value-of select="&quot;N/A&quot;"/>
                 </ns:status>
                 <ns:logMessage>
-                    <xsl:value-of select="&quot;N/A&quot;"/>
+                    <xsl:value-of select="&quot;initiale&quot;"/>
                 </ns:logMessage>
             </ns:log_info>
         </pd:inputBindings>
@@ -204,7 +208,7 @@ WHERE flag='N'</statement>
     <pd:transition>
         <pd:from>Group</pd:from>
         <pd:to>End</pd:to>
-        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineType>Curved</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>
     </pd:transition>
@@ -216,15 +220,15 @@ WHERE flag='N'</statement>
         <pd:conditionType>always</pd:conditionType>
     </pd:transition>
     <pd:transition>
-        <pd:from>Recuperation BDD</pd:from>
-        <pd:to>Group</pd:to>
+        <pd:from>Log Initiale</pd:from>
+        <pd:to>Recuperation BDD</pd:to>
         <pd:lineType>Multiple Bends</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>
     </pd:transition>
     <pd:transition>
-        <pd:from>Log Initiale</pd:from>
-        <pd:to>Recuperation BDD</pd:to>
+        <pd:from>Recuperation BDD</pd:from>
+        <pd:to>Group</pd:to>
         <pd:lineType>Multiple Bends</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>

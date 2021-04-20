@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/JSON_GEN_Schemas/adresse.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/Lab2/JSON_GEN_Schemas/Schema.xsd" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:pfx3="http://www.tibco.com/schemas/Lab2/schema/Schema.xsd" xmlns:pfx4="http://www.tibco.com/schemas/Lab2/schema/Schema1.xsd2" xmlns:pfx5="http://www.tibco.com/ns/no_namespace_schema_location/Ressources/Data Format.sharedparse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/pe/EngineTypes">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/JSON_GEN_Schemas/adresse.xsd" schemaLocation="/JSON_GEN_Schemas/adresse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/Lab2/JSON_GEN_Schemas/Schema.xsd" schemaLocation="/JSON_GEN_Schemas/weather.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Ressources/Data Format.sharedparse"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/Lab2/schema/Schema1.xsd2" schemaLocation="/schema/q.xsd"/>
+    <pd:name>ProcessDefinitions/Lab3.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx4:q"/>
+    <pd:startX>53</pd:startX>
+    <pd:startY>75</pd:startY>
+    <pd:returnBindings>
+        <pfx4:q>
+            <xsl:value-of select="$Start/pfx4:q"/>
+        </pfx4:q>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1162</pd:endX>
+    <pd:endY>88</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1618583867561</pd:targetNamespace>
+    <pd:activity name="Invoke REST API  Lat &amp; Lon">
+        <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
+        <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>80</pd:y>
+        <config>
+            <enableProtocolUI>None</enableProtocolUI>
+            <restMethodUI>GET</restMethodUI>
+            <restResponseType>JSON</restResponseType>
+            <authChoiceUI>No Authentication</authChoiceUI>
+            <WADLPaths/>
+            <WADLBaseURL/>
+            <restMethodIDUI/>
+            <restURI>https://api-adresse.data.gouv.fr/search/</restURI>
+            <restInputReferNode>
+                <xsd:element name="Parameters">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Query" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="q" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Header" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Body" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Form" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Text" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Binary" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Multipart" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="content-disposition" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-id" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" minOccurs="0">
+                                                        <xsd:complexType>
+                                                            <xsd:choice>
+                                                                <xsd:element name="binary" type="xsd:base64Binary"/>
+                                                                <xsd:element name="text" type="xsd:string"/>
+                                                                <xsd:element name="fileName" type="xsd:string"/>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restInputReferNode>
+            <restOutputReferNode>
+                <xsd:element name="header">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Server" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Range" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Last-Modifie" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restOutputReferNode>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:Parameters>
+                    <Query>
+                        <q>
+                            <xsl:value-of select="$Start/pfx4:q"/>
+                        </q>
+                    </Query>
+                </ns:Parameters>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse JSON">
+        <pd:type>com.tibco.plugin.json.activities.JSONParserActivity</pd:type>
+        <pd:resourceType>ae.activities.JSONParserActivity</pd:resourceType>
+        <pd:x>440</pd:x>
+        <pd:y>91</pd:y>
+        <config>
+            <SchemaType>xsdType</SchemaType>
+            <BadgerfishCheck>false</BadgerfishCheck>
+            <ActivityOutputEditor ref="pfx:JSON"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInputClass>
+                <jsonString>
+                    <xsl:value-of select="$Invoke-REST-API--Lat--Lon/ns:RESTOutput/msg"/>
+                </jsonString>
+            </ns:ActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>565</pd:x>
+        <pd:y>11</pd:y>
+        <pd:width>336</pd:width>
+        <pd:height>162</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Parse-JSON/ns:ActivityOutputClass/JSON/features</pd:over>
+            <pd:iterationElementSlot>current</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Invoke REST API climat</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Parse XML</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Invoke REST API climat</pd:from>
+            <pd:to>Parse XML</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Invoke REST API climat">
+            <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
+            <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
+            <pd:x>647</pd:x>
+            <pd:y>89</pd:y>
+            <config>
+                <enableProtocolUI>None</enableProtocolUI>
+                <restMethodUI>GET</restMethodUI>
+                <restResponseType>JSON</restResponseType>
+                <authChoiceUI>No Authentication</authChoiceUI>
+                <WADLPaths/>
+                <WADLBaseURL/>
+                <restMethodIDUI/>
+                <restURI>http://api.openweathermap.org/data/2.5/weather</restURI>
+                <restInputReferNode>
+                    <xsd:element name="Parameters">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Query" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="lon" type="xsd:double"/>
+                                            <xsd:element name="lat" type="xsd:double"/>
+                                            <xsd:element name="mode" type="xsd:string"/>
+                                            <xsd:element name="appid" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="Header" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="Body" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="Form" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="Text" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content" type="xsd:string" minOccurs="0"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="Binary" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="Multipart" minOccurs="0" maxOccurs="unbounded">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="content-disposition" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content-type" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content-id" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content" minOccurs="0">
+                                                            <xsd:complexType>
+                                                                <xsd:choice>
+                                                                    <xsd:element name="binary" type="xsd:base64Binary"/>
+                                                                    <xsd:element name="text" type="xsd:string"/>
+                                                                    <xsd:element name="fileName" type="xsd:string"/>
+                                                                </xsd:choice>
+                                                            </xsd:complexType>
+                                                        </xsd:element>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </restInputReferNode>
+                <restOutputReferNode>
+                    <xsd:element name="header">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Server" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Range" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Last-Modifie" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </restOutputReferNode>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <ns:Parameters>
+                        <Query>
+                            <lon>
+                                <xsl:value-of select="$current/features/geometry/coordinates[2]"/>
+                            </lon>
+                            <lat>
+                                <xsl:value-of select="$current/features/geometry/coordinates[1]"/>
+                            </lat>
+                            <mode>
+                                <xsl:value-of select="&quot;xml&quot;"/>
+                            </mode>
+                            <appid>
+                                <xsl:value-of select="&quot;dafffa76891b4295ba668787a413562e&quot;"/>
+                            </appid>
+                        </Query>
+                    </ns:Parameters>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Parse XML">
+            <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+            <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+            <pd:x>774</pd:x>
+            <pd:y>95</pd:y>
+            <config>
+                <inputStyle>text</inputStyle>
+                <xsdVersion>default</xsdVersion>
+                <validateOutput>false</validateOutput>
+                <term ref="pfx2:current"/>
+            </config>
+            <pd:inputBindings>
+                <xmlString>
+                    <xsl:value-of select="$Invoke-REST-API-climat/ns:RESTOutput/msg"/>
+                </xmlString>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Log initial">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>181</pd:x>
+        <pd:y>75</pd:y>
+        <config>
+            <processName>/ProcessDefinitions/Logging.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:log_info>
+                <pfx3:idFonc>
+                    <xsl:value-of select="concat(&quot;?!?!?!?&quot;, tib:timestamp())"/>
+                </pfx3:idFonc>
+                <pfx3:idTech>
+                    <xsl:value-of select="$_processContext/ns1:ProcessContext/ProcessId"/>
+                </pfx3:idTech>
+                <pfx3:status>
+                    <xsl:value-of select="&quot;N/A&quot;"/>
+                </pfx3:status>
+                <pfx3:logMessage>
+                    <xsl:value-of select="&quot;initiale&quot;"/>
+                </pfx3:logMessage>
+            </pfx3:log_info>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log succes">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>979</pd:x>
+        <pd:y>95</pd:y>
+        <config>
+            <processName>/ProcessDefinitions/Logging.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:log_info>
+                <pfx3:idFonc>
+                    <xsl:value-of select="concat(&quot;?!?!?!?!?&quot;, tib:timestamp())"/>
+                </pfx3:idFonc>
+                <pfx3:idTech>
+                    <xsl:value-of select="$_processContext/ns1:ProcessContext/ProcessId"/>
+                </pfx3:idTech>
+                <pfx3:status>
+                    <xsl:value-of select="&quot;N/A&quot;"/>
+                </pfx3:status>
+                <pfx3:logMessage>
+                    <xsl:value-of select="&quot;succes&quot;"/>
+                </pfx3:logMessage>
+            </pfx3:log_info>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log error">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1118</pd:x>
+        <pd:y>282</pd:y>
+        <config>
+            <processName>/ProcessDefinitions/Logging.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:log_info>
+                <pfx3:idFonc>
+                    <xsl:value-of select="concat(&quot;?!?!?!?!&quot;, tib:timestamp())"/>
+                </pfx3:idFonc>
+                <pfx3:idTech>
+                    <xsl:value-of select="$_processContext/ns1:ProcessContext/ProcessId"/>
+                </pfx3:idTech>
+                <pfx3:status>
+                    <xsl:value-of select="&quot;N/A&quot;"/>
+                </pfx3:status>
+                <pfx3:logMessage>
+                    <xsl:value-of select="&quot;error&quot;"/>
+                </pfx3:logMessage>
+            </pfx3:log_info>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>876</pd:x>
+        <pd:y>281</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Log initial</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke REST API  Lat &amp; Lon</pd:from>
+        <pd:to>Parse JSON</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Invoke-REST-API--Lat--Lon/ns:RESTOutput/StatusCode=200</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse JSON</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Log succes</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log initial</pd:from>
+        <pd:to>Invoke REST API  Lat &amp; Lon</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log succes</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Log error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

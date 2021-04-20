@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.fastconnect.fr/BWDev/services" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx0="http://www.tibco.com/schemas/Lab2/schema/Schema1.xsd2" targetNamespace="http://www.fastconnect.fr/BWDev/services">
+    <import namespace="http://www.tibco.com/schemas/Lab2/schema/Schema1.xsd2" location="../schema/q.xsd"/>
+    <message name="q">
+        <part element="pfx0:q" name="parameters"/>
+    </message>
+    <portType name="portType">
+        <operation name="Lab3Op">
+            <input message="tns:q"/>
+        </operation>
+    </portType>
+</definitions>

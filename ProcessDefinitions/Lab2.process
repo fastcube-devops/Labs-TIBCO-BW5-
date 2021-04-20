@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/Lab2/schema/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType">
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/Lab2/schema/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <pd:name>ProcessDefinitions/Lab2.process</pd:name>
     <pd:startName>Réception Fichier Source</pd:startName>
     <pd:startX>0</pd:startX>
@@ -13,8 +13,8 @@
         <config>
             <pollInterval>5</pollInterval>
             <createEvent>true</createEvent>
-            <modifyEvent>true</modifyEvent>
-            <deleteEvent>true</deleteEvent>
+            <modifyEvent>false</modifyEvent>
+            <deleteEvent>false</deleteEvent>
             <mode>files-and-directories</mode>
             <encoding>text</encoding>
             <sortby>File Name</sortby>
@@ -24,8 +24,8 @@
         <pd:inputBindings/>
     </pd:starter>
     <pd:endName>End</pd:endName>
-    <pd:endX>1295</pd:endX>
-    <pd:endY>170</pd:endY>
+    <pd:endX>1455</pd:endX>
+    <pd:endY>292</pd:endY>
     <pd:errorSchemas/>
     <pd:processVariables/>
     <pd:targetNamespace>http://xmlns.example.com/1618321970213</pd:targetNamespace>
@@ -48,8 +48,8 @@
     <pd:group name="Group">
         <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
         <pd:resourceType>ae.process.group</pd:resourceType>
-        <pd:x>329</pd:x>
-        <pd:y>12</pd:y>
+        <pd:x>275</pd:x>
+        <pd:y>1</pd:y>
         <pd:width>898</pd:width>
         <pd:height>470</pd:height>
         <pd:collapsedWidth>57</pd:collapsedWidth>
@@ -170,8 +170,8 @@
         <pd:activity name="Rename File">
             <pd:type>com.tibco.plugin.file.FileRenameActivity</pd:type>
             <pd:resourceType>ae.activities.FileRenameActivity</pd:resourceType>
-            <pd:x>736</pd:x>
-            <pd:y>83</pd:y>
+            <pd:x>682</pd:x>
+            <pd:y>72</pd:y>
             <config>
                 <overwrite>true</overwrite>
             </config>
@@ -189,8 +189,8 @@
         <pd:activity name="Map Data">
             <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
             <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
-            <pd:x>417</pd:x>
-            <pd:y>238</pd:y>
+            <pd:x>354</pd:x>
+            <pd:y>274</pd:y>
             <config>
                 <element>
                     <xsd:element name="root">
@@ -213,8 +213,8 @@
         <pd:activity name="Remove File Target">
             <pd:type>com.tibco.plugin.file.FileRemoveActivity</pd:type>
             <pd:resourceType>ae.activities.FileRemoveActivity</pd:resourceType>
-            <pd:x>970</pd:x>
-            <pd:y>100</pd:y>
+            <pd:x>916</pd:x>
+            <pd:y>89</pd:y>
             <config/>
             <pd:inputBindings>
                 <ns:RemoveActivityInputClass>
@@ -227,8 +227,8 @@
         <pd:activity name="Remove-File-Error">
             <pd:type>com.tibco.plugin.file.FileRemoveActivity</pd:type>
             <pd:resourceType>ae.activities.FileRemoveActivity</pd:resourceType>
-            <pd:x>767</pd:x>
-            <pd:y>360</pd:y>
+            <pd:x>753</pd:x>
+            <pd:y>367</pd:y>
             <config/>
             <pd:inputBindings>
                 <ns:RemoveActivityInputClass>
@@ -241,18 +241,23 @@
         <pd:activity name="JDBC Update">
             <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
             <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
-            <pd:x>618</pd:x>
-            <pd:y>90</pd:y>
+            <pd:x>564</pd:x>
+            <pd:y>89</pd:y>
             <config>
                 <timeout>10</timeout>
                 <commit>false</commit>
                 <emptyStrAsNil>false</emptyStrAsNil>
                 <jdbcSharedConfig>/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
-                <statement>UPDATE clients
-SET nom_fichier = ?</statement>
+                <statement>UPDATE CLIENTS
+SET NOM_FICHIER = ?
+WHERE ID_CLIENT = ?</statement>
                 <Prepared_Param_DataType>
                     <parameter>
                         <parameterName>nom_fichier</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ID_CLIENT</parameterName>
                         <dataType>VARCHAR</dataType>
                     </parameter>
                 </Prepared_Param_DataType>
@@ -262,14 +267,24 @@ SET nom_fichier = ?</statement>
                     <nom_fichier>
                         <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/FolderSource,$current/fileInfo/fileName)"/>
                     </nom_fichier>
+                    <ID_CLIENT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Traiter-Fichier-Source/Output/Rows/Client[1]/id_client)">
+                                <xsl:value-of select="$Traiter-Fichier-Source/Output/Rows/Client[1]/id_client"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ID_CLIENT>
                 </jdbcUpdateActivityInput>
             </pd:inputBindings>
         </pd:activity>
         <pd:activity name="Log error">
             <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
             <pd:resourceType>ae.process.subprocess</pd:resourceType>
-            <pd:x>1061</pd:x>
-            <pd:y>375</pd:y>
+            <pd:x>994</pd:x>
+            <pd:y>311</pd:y>
             <config>
                 <processName>/ProcessDefinitions/Logging.process</processName>
             </config>
@@ -293,8 +308,8 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Log succes">
             <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
             <pd:resourceType>ae.process.subprocess</pd:resourceType>
-            <pd:x>1082</pd:x>
-            <pd:y>101</pd:y>
+            <pd:x>1028</pd:x>
+            <pd:y>90</pd:y>
             <config>
                 <processName>/ProcessDefinitions/Logging.process</processName>
             </config>
@@ -318,8 +333,8 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Copy File Error">
             <pd:type>com.tibco.plugin.file.FileCopyActivity</pd:type>
             <pd:resourceType>ae.activities.FileCopyActivity</pd:resourceType>
-            <pd:x>557</pd:x>
-            <pd:y>379</pd:y>
+            <pd:x>492</pd:x>
+            <pd:y>387</pd:y>
             <config/>
             <pd:inputBindings>
                 <ns:CopyActivityConfig>
@@ -335,8 +350,8 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Copy-File-target">
             <pd:type>com.tibco.plugin.file.FileCopyActivity</pd:type>
             <pd:resourceType>ae.activities.FileCopyActivity</pd:resourceType>
-            <pd:x>842</pd:x>
-            <pd:y>107</pd:y>
+            <pd:x>789</pd:x>
+            <pd:y>96</pd:y>
             <config/>
             <pd:inputBindings>
                 <ns:CopyActivityConfig>
@@ -352,8 +367,8 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Traiter Fichier Source">
             <pd:type>com.tibco.plugin.parse.ParseActivity</pd:type>
             <pd:resourceType>ae.activities.ParseActivity</pd:resourceType>
-            <pd:x>509</pd:x>
-            <pd:y>78</pd:y>
+            <pd:x>456</pd:x>
+            <pd:y>88</pd:y>
             <config>
                 <InputType>String</InputType>
                 <Encoding>ASCII</Encoding>
@@ -373,8 +388,8 @@ SET nom_fichier = ?</statement>
         <pd:activity name="Log warnning">
             <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
             <pd:resourceType>ae.process.subprocess</pd:resourceType>
-            <pd:x>766</pd:x>
-            <pd:y>247</pd:y>
+            <pd:x>635</pd:x>
+            <pd:y>232</pd:y>
             <config>
                 <processName>/ProcessDefinitions/Logging.process</processName>
             </config>
@@ -421,6 +436,42 @@ SET nom_fichier = ?</statement>
             </pfx:log_info>
         </pd:inputBindings>
     </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1249</pd:x>
+        <pd:y>397</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Log error all">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1413</pd:x>
+        <pd:y>396</pd:y>
+        <config>
+            <processName>/ProcessDefinitions/Logging.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:log_info>
+                <pfx:idFonc>
+                    <xsl:value-of select="concat(&quot;!!!!!!!!!!!&quot;, tib:timestamp())"/>
+                </pfx:idFonc>
+                <pfx:idTech>
+                    <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                </pfx:idTech>
+                <pfx:status>
+                    <xsl:value-of select="&quot;N/A&quot;"/>
+                </pfx:status>
+                <pfx:logMessage>
+                    <xsl:value-of select="&quot;error&quot;"/>
+                </pfx:logMessage>
+            </pfx:log_info>
+        </pd:inputBindings>
+    </pd:activity>
     <pd:transition>
         <pd:from>Group</pd:from>
         <pd:to>End</pd:to>
@@ -446,6 +497,20 @@ SET nom_fichier = ?</statement>
         <pd:from>Réception Fichier Source</pd:from>
         <pd:to>Log Initiale</pd:to>
         <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Log error all</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log error all</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>
     </pd:transition>

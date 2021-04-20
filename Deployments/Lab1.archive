@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>Dev</authorProperty>
+        </sharedArchive>
+        <processArchive name="Process Archive lab1">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>Dev</authorProperty>
+            <processProperty>/ProcessDefinitions/Ecriture csv.process</processProperty>
+        </processArchive>
+        <processArchive name="Process Archive ecrire csv">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>Dev</authorProperty>
+            <processProperty>/ProcessDefinitions/Lab1.process</processProperty>
+        </processArchive>
+        <versionProperty>3</versionProperty>
+        <authorProperty>Dev</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>Lab1</name>
+        <designer/>
+        <fileLocationProperty>C:\FCBWDEV\Lab2\lab1.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>
